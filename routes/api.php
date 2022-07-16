@@ -16,7 +16,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 /**
  * Auth
  */
-Route::post('/auth', [AuthController::class, 'auth']);
+Route::post('/auth', [AuthController::class, 'auth'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 

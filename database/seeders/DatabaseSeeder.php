@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->insert([
+            'name' => 'Giaffone',
+            'email' => 'felipe.giaffone@gmail.com',
+            'password' => bcrypt('password'),
+        ]);
+
         \App\Models\User::factory(10)->create();
         \App\Models\Shipping::factory(10)->create();
         \App\Models\Driver::factory(10)->create();
