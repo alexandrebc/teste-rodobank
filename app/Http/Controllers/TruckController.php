@@ -66,10 +66,10 @@ class TruckController extends Controller
 
     public function destroy($id)
     {
-        $truck = $this->findTruck($id);
+        $ids = explode(',', $id);
 
-        $truck->delete();
+        $this->entity->whereIn('id', $ids)->delete();
 
-        return response()->json(['message' => 'Caminhão deletado'], 204);
+        return response()->json(['message' => 'Caminhão(ões) deletado(s) com sucesso'], 204);
     }
 }

@@ -54,9 +54,9 @@ class ShippingController extends Controller
     }
 
 
-    public function index()
+    public function index($quantity)
     {
-        $shippings = $this->entity->with(['contracts'])->get();
+        $shippings = $this->entity->with(['contracts'])->paginate($quantity);
 
         return ShippingResource::collection($shippings);
     }
@@ -102,11 +102,11 @@ class ShippingController extends Controller
 
     public function destroy($id)
     {
-        $shipping = $this->findShipping($id);
+        $ids = explode(',', $id);
 
-        $shipping->delete();
+        $this->entity->whereIn('id', $ids)->delete();
 
-        return response()->json(['message' => 'Transportadora deletada'], 204);
+        return response()->json(['message' => 'Transportadora(s) deletada(s) com sucesso'], 204);
     }
 
     public function status($id)

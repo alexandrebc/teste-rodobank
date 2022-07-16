@@ -106,10 +106,10 @@ class DriverController extends Controller
 
     public function destroy($id)
     {
-        $driver = $this->findDriver($id);
+        $ids = explode(',', $id);
 
-        $driver->delete();
+        $this->entity->whereIn('id', $ids)->delete();
 
-        return response()->json(['message'=>'Driver deleted successfully'], 204);
+        return response()->json(['message'=>'Motorista(s) deletado(s) com sucesso'], 204);
     }
 }

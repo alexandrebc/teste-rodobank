@@ -26,16 +26,17 @@ Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->middleware('guest');
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest');
 
-Route::middleware(['auth:sanctum'])->group(function () {
+//Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('shippings', ShippingController::class);
     Route::apiResource('drivers', DriverController::class);
     Route::apiResource('trucks', TruckController::class);
 
+    Route::get('/shippings/index/{quantity}', [ShippingController::class, 'index']);
     Route::get('/shippings/{shipping_id}/status', [ShippingController::class, 'status']);
 
     Route::get('/contracts/{shipping_id}/{driver_id}', [ContractController::class, 'create']);
     Route::delete('/contracts/{shipping_id}/{driver_id}', [ContractController::class, 'delete']);
-});
+//});
 
 Route::get('/', function () {
     return response()->json(['message' => 'success']);
