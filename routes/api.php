@@ -33,6 +33,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
      * get('/model/{model_id}') => show
      * put('/model/{model_id}') => update
      * delete('/model/{model_id}') => delete
+     *
+     * Cada motorista é listado com seus respectivos caminhões e vínculos.
+     * Cada transportadora é listada com seus respectivos vínculos
      */
 
     Route::apiResource('shippings', ShippingController::class);
