@@ -15,4 +15,9 @@ class Driver extends Model
     {
         return $this->hasMany(Truck::class);
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
 }

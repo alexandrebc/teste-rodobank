@@ -20,7 +20,8 @@ class DriverResource extends JsonResource
             'cpf' => $this->cpf,
             'birth_date' => $this->birth_date,
             'email' => $this->email,
-            'trucks' => TruckResource::collection($this->whenLoaded('trucks'))
+            'trucks' => TruckResource::collection($this->whenLoaded('trucks')),
+            'contracts' => ContractResource::collection($this->whenLoaded('contracts')),
         ];
     }
 }

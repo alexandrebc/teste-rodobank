@@ -10,4 +10,9 @@ class Shipping extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'cnpj'];
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
 }

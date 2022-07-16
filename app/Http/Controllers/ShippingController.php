@@ -18,7 +18,7 @@ class ShippingController extends Controller
 
     private function findShipping($id)
     {
-        return $this->entity->findOrFail($id);
+        return $this->entity->with(['contracts'])->findOrFail($id);
     }
 
     private function cnpjValidator($cnpj)
@@ -56,7 +56,7 @@ class ShippingController extends Controller
 
     public function index()
     {
-        $shippings = $this->entity->get();
+        $shippings = $this->entity->with(['contracts'])->get();
 
         return ShippingResource::collection($shippings);
     }

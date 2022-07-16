@@ -13,6 +13,7 @@ class ShippingResource extends JsonResource
             'name' => $this->name,
             'cnpj' => $this->cnpj,
             'status' => $this->status,
+            'contracts' => ContractResource::collection($this->whenLoaded('contracts')),
         ];
     }
 }
