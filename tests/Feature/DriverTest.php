@@ -52,6 +52,30 @@ class DriverTest extends TestCase
         $response->assertStatus(422);
     }
 
+    public function test_validations_CPF()
+    {
+        $response = $this->postJson($this->endpoint, [
+            'name' => 'Lewis Hamilton',
+            'cpf' => '11111111111',
+            'birth_date' => '1985/2/12',
+            'email' => ''
+        ], $this->defaultHeaders());
+
+        $response->assertStatus(400);
+    }
+
+    public function test_validations_minimum_age()
+    {
+        $response = $this->postJson($this->endpoint, [
+            'name' => 'Lewis Hamilton',
+            'cpf' => Generator::cpf(),
+            'birth_date' => '2005/2/12',
+            'email' => ''
+        ], $this->defaultHeaders());
+
+        $response->assertStatus(422);
+    }
+
     public function test_store_Driver()
     {
         $response = $this->postJson($this->endpoint, [

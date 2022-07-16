@@ -21,9 +21,12 @@ class TruckController extends Controller
         return $this->entity->findOrFail($id);
     }
 
-    public function index($quantity)
+    public function index($quantity = NULL)
     {
-        $trucks = $this->entity->paginate($quantity);
+        if($quantity == NULL)
+            $trucks = $this->entity->get();
+        else
+            $trucks = $this->entity->paginate($quantity);
 
         return TruckResource::collection($trucks);
     }

@@ -54,9 +54,12 @@ class ShippingController extends Controller
     }
 
 
-    public function index($quantity)
+    public function index($quantity = NULL)
     {
-        $shippings = $this->entity->with(['contracts'])->paginate($quantity);
+        if($quantity === NULL)
+            $shippings = $this->entity->get();
+        else
+            $shippings = $this->entity->with(['contracts'])->paginate($quantity);
 
         return ShippingResource::collection($shippings);
     }

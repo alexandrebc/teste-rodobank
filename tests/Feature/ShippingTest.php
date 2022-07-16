@@ -52,6 +52,16 @@ class ShippingTest extends TestCase
         $response->assertStatus(422);
     }
 
+    public function test_validations_CNPJ()
+    {
+        $response = $this->postJson($this->endpoint, [
+            'name' => 'Teste',
+            'cnpj' => '11111111111111'
+        ], $this->defaultHeaders());
+
+        $response->assertStatus(400);
+    }
+
     public function test_store_Shipping()
     {
 

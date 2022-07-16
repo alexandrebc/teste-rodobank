@@ -64,6 +64,18 @@ class TruckTest extends TestCase
         $response->assertStatus(422);
     }
 
+    public function test_validations_Plate()
+    {
+        $response = $this->postJson($this->endpoint, [
+            'model' => 'Mercedes',
+            'color' => 'Blue',
+            'license_plate' => 'AB12345',
+            'email' => 5
+        ], $this->defaultHeaders());
+
+        $response->assertStatus(422);
+    }
+
     public function test_store_Truck()
     {
         $faker = \Faker\Factory::create('pt_BR');
