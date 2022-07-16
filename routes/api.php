@@ -32,6 +32,9 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
     Route::apiResource('trucks', TruckController::class);
 
     Route::get('/shippings/index/{quantity}', [ShippingController::class, 'index']);
+    Route::get('/drivers/index/{quantity}', [DriverController::class, 'index']);
+    Route::get('/trucks/index/{quantity}', [TruckController::class, 'index']);
+
     Route::get('/shippings/{shipping_id}/status', [ShippingController::class, 'status']);
 
     Route::get('/contracts/{shipping_id}/{driver_id}', [ContractController::class, 'create']);

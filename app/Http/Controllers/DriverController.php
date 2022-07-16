@@ -44,9 +44,9 @@ class DriverController extends Controller
     }
 
 
-    public function index()
+    public function index($quantity)
     {
-        $drivers = $this->entity->with(['trucks', 'contracts'])->get();
+        $drivers = $this->entity->with(['trucks', 'contracts'])->paginate($quantity);
 
         return DriverResource::collection($drivers);
     }
