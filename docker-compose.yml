@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+    # image project
+    api:
+        container_name: laravel
+        build:
+            args:
+                user: jonabsfx
+                uid: 1918
+            context: .
+            dockerfile: Dockerfile
+        image: jonabsfx:laravel-app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+        networks:
+            - laravel
+
+    # nginx
+    nginx:
+        container_name: nginx
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - 8000:80
+            - 443:443
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - laravel
+
+    # db mysql
+    mysql:
+        container_name: mysql
+        image: mysql:oracle
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+        volumes:
+            - ./.docker/mysql/dbdata:/var/lib/mysql
+        ports:
+            - "3388:3308"
+        networks:
+            - laravel
+
+    # queue
+    queue:
+        container_name: queue
+        image: jonabsfx:laravel-app
+        build:
+            args:
+                user: jonabsfx
+                uid: 1918
+        restart: unless-stopped
+        command: "php artisan queue:work"
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+            - api
+        networks:
+            - laravel
+    # redis
+    redis:
+        container_name: redis
+        image: redis:latest
+        networks:
+            - laravel
+
+networks:
+    laravel:
+        driver: bridge
