@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DriverResource extends JsonResource
+class TruckResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,10 @@ class DriverResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'cpf' => $this->cpf,
-            'birth_date' => $this->birth_date,
-            'email' => $this->email,
-            'trucks' => TruckResource::collection($this->whenLoaded('trucks'))
+            'model' => $this->model,
+            'color' => $this->color,
+            'license_plate' => $this->license_plate,
+            'driver' =>  new DriverResource($this->driver),
         ];
     }
 }

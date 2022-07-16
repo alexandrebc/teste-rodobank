@@ -18,7 +18,7 @@ class DriverController extends Controller
 
     private function findDriver($id)
     {
-        return $this->entity->findOrFail($id);
+        return $this->entity->with(['trucks'])->findOrFail($id);
     }
 
     private function cpfValidator($cpf)
@@ -46,7 +46,7 @@ class DriverController extends Controller
 
     public function index()
     {
-        $drivers = $this->entity->get();
+        $drivers = $this->entity->with(['trucks'])->get();
 
         return DriverResource::collection($drivers);
     }

@@ -10,4 +10,9 @@ class Driver extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'cpf', 'birth_date', 'email'];
+
+    public function trucks()
+    {
+        return $this->hasMany(Truck::class);
+    }
 }

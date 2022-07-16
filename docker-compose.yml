@@ -22,6 +22,7 @@ services:
 
     # nginx
     nginx:
+        container_name: nginx
         image: nginx:alpine
         restart: unless-stopped
         ports:
