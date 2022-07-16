@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e69ffc502c11975d31e87ec209fc6a84",
+    "content-hash": "7e2259b94acccb8f5840f57ea03dd680",
     "packages": [
         {
             "name": "avlima/php-cpf-cnpj-generator",

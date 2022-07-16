@@ -23,12 +23,13 @@ class ContractController extends Controller
         return response()->json($response, 200);
     }
 
-    public function delete($driver_id, $shipping_id)
+    public function delete($shipping_id, $driver_id)
     {
         Contract::Select('*')
                 ->where('driver_id', $driver_id)
                 ->where('shipping_id', $shipping_id)
                 ->delete();
+
         return response()->json(['message' => 'Contrato excluído com sucesso'], 204);
     }
 }

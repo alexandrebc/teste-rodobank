@@ -108,4 +108,22 @@ class ShippingController extends Controller
 
         return response()->json(['message' => 'Transportadora deletada'], 204);
     }
+
+    public function status($id)
+    {
+        $shipping = $this->findShipping($id);
+
+        if($shipping->status == 1){
+            $shipping->status = 0;
+            $shipping->save();
+
+            return response()->json(['message' => 'Transportadora inativada com sucesso'], 200);
+        }
+
+        $shipping->status = 1;
+        $shipping->save();
+
+        return response()->json(['message' => 'Transportadora ativada com sucesso'], 200);
+
+    }
 }

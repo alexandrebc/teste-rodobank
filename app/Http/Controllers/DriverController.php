@@ -56,11 +56,21 @@ class DriverController extends Controller
         $data = $request->validated();
 
         if($this->cpfValidator($data['cpf'])){
+           if($request->email != null){
+                $response = $this->entity->create([
+                    'name' => $data['name'],
+                    'cpf' => $data['cpf'],
+                    'birth_date' => $data['birth_date'],
+                    'email' => $data['email'],
+                ]);
+
+                return response()->json($response, 200);
+           }
+
             $response = $this->entity->create([
                 'name' => $data['name'],
                 'cpf' => $data['cpf'],
                 'birth_date' => $data['birth_date'],
-                'email' => $data['email'],
             ]);
 
             return response()->json($response, 200);

@@ -13,6 +13,8 @@ class TruckTest extends TestCase
 {
     protected $endpoint = '/trucks';
 
+    use UtilsTrait;
+
     public function plateGenerator()
     {
         $plate = [chr(rand(65,90)), chr(rand(65,90)), chr(rand(65,90)), chr(rand(48,57)),
@@ -26,7 +28,7 @@ class TruckTest extends TestCase
     {
         Truck::factory()->count(6)->create();
 
-        $response = $this->getJson($this->endpoint);
+        $response = $this->getJson($this->endpoint, $this->defaultHeaders());
 
         $response->assertJsonCount(Truck::count(), 'data');
         $response->assertStatus(200);
@@ -36,7 +38,7 @@ class TruckTest extends TestCase
     {
         $truck_id = 1918;
 
-        $response = $this->getJson("{$this->endpoint}/{$truck_id}");
+        $response = $this->getJson("{$this->endpoint}/{$truck_id}", $this->defaultHeaders());
 
         $response->assertStatus(404);
     }
@@ -45,7 +47,7 @@ class TruckTest extends TestCase
     {
         $truck = Truck::factory()->create();
 
-        $response = $this->getJson("{$this->endpoint}/{$truck->id}");
+        $response = $this->getJson("{$this->endpoint}/{$truck->id}", $this->defaultHeaders());
 
         $response->assertStatus(200);
     }
@@ -57,7 +59,7 @@ class TruckTest extends TestCase
             'cpf' => '',
             'birth_date' => '',
             'email' => ''
-        ]);
+        ], $this->defaultHeaders());
 
         $response->assertStatus(422);
     }
@@ -73,7 +75,7 @@ class TruckTest extends TestCase
             'color' => $faker->colorName(),
             'license_plate'=> $this->plateGenerator(),
             'driver_id' => $driver_id,
-        ]);
+        ], $this->defaultHeaders());
 
         $response->assertStatus(200);
     }
@@ -93,13 +95,13 @@ class TruckTest extends TestCase
             'driver_id' => $driver_id
         ];
 
-        $response = $this->putJson("$this->endpoint/1918", $data);
+        $response = $this->putJson("$this->endpoint/1918", $data, $this->defaultHeaders());
         $response->assertStatus(404);
 
-        $response = $this->putJson("$this->endpoint/{$truck->id}", []);
+        $response = $this->putJson("$this->endpoint/{$truck->id}", [], $this->defaultHeaders());
         $response->assertStatus(422);
 
-        $response = $this->putJson("$this->endpoint/{$truck->id}", $data);
+        $response = $this->putJson("$this->endpoint/{$truck->id}", $data, $this->defaultHeaders());
         $response->assertStatus(200);
     }
 
@@ -107,10 +109,7 @@ class TruckTest extends TestCase
     {
         $truck = Truck::factory()->create();
 
-        $response = $this->deleteJson("{$this->endpoint}/1918");
-        $response->assertStatus(404);
-
-        $response = $this->deleteJson("{$this->endpoint}/{$truck->id}");
+        $response = $this->deleteJson("{$this->endpoint}/{$truck->id}",[], $this->defaultHeaders());
         $response->assertStatus(204);
     }
 }
