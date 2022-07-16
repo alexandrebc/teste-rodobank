@@ -89,7 +89,7 @@ class ShippingController extends Controller
         $shipping = $this->findShipping($id);
 
         if($this->cnpjValidator($data['cnpj'])){
-            $response = $shipping->update([
+            $shipping->update([
                 'name' => $data['name'],
                 'cnpj' => $data['cnpj'],
             ]);

@@ -25,7 +25,19 @@ class StoreShippingRequest extends FormRequest
     {
         return [
                 'name' => 'required|max:100',
-                'cnpj' => 'required|integer|digits:14|unique:shippings'
+                'cnpj' => 'required|digits:14|unique:shippings'
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nome da transportadora não pode ficar em branco',
+            'name.max' => 'Tamanho máximo do nome da transportadora é de 100 caracteres',
+            'cnpj.unique' => 'CNPJ já cadastrado',
+            'cnpj.digits' => 'Informe um cnpj válido',
+            'cnpj.required' => 'CNPJ da transportadora não pode ficar em branco'
+        ];
+
     }
 }

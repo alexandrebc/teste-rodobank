@@ -20,7 +20,7 @@ class ShippingFactory extends Factory
     {
         return [
             'name' => $this->faker->company(),
-            'cnpj' => $this->faker->cnpj(false)
+            'cnpj' => $this->faker->unique->cnpj(false)
         ];
     }
 }
